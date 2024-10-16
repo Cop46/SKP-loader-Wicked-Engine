@@ -507,21 +507,9 @@ void initSkpMatrix(SUTransformation* transform)
 
 XMFLOAT4X4 getWickedMatrixFromSkpTransformation(SUTransformation* transformation)
 {
-    return XMFLOAT4X4{
-        (float)transformation->values[0],
-        (float)transformation->values[1],
-        (float)transformation->values[2],
-        (float)transformation->values[3],
-        (float)transformation->values[4],
-        (float)transformation->values[5],
-        (float)transformation->values[6],
-        (float)transformation->values[7],
-        (float)transformation->values[8],
-        (float)transformation->values[9],
-        (float)transformation->values[10],
-        (float)transformation->values[11],
-        (float)transformation->values[12], 
-        (float)transformation->values[13],
-        (float)transformation->values[14],
-        (float)transformation->values[15]};
+    XMFLOAT4X4 matrix;
+    for (int i = 0; i < 16; ++i) {
+        reinterpret_cast<float*>(&matrix)[i] = static_cast<float>(transformation->values[i]);
+    }
+    return matrix;
 }
